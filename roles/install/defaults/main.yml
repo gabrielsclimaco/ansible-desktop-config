@@ -79,7 +79,7 @@ systemd_services:
 
 node_version: 16
 npm_packages:
-  - @quasar/cli
+  - "@quasar/cli"
   - cordova
   - serverless
   - yarn

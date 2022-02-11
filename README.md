@@ -21,5 +21,5 @@ After a fresh install and:
 Just run the command:
 
 ```sh
-sudo ansible-pull -U git@github.com:gabrielsclimaco/ansible-desktop-config.git
+sudo ansible-pull -U https://github.com/gabrielsclimaco/ansible-desktop-config.git
 ```
