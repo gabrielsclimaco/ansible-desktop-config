@@ -1,0 +1,23 @@
+---
+git_user_email: gabrielsclimaco@protonmail.com
+git_user_name: Gabriel Climaco
+
+dotfiles_repo_url: git@github.com:gabrielsclimaco/dotfiles.git
+
+zshenv_source: /home/{{ user }}/.config/zsh/.zshenv
+
+zsh_plugin_base_url: "https://github.com/zsh-users/" 
+zsh_plugin_dir: /home/{{ user }}/.oh-my-zsh/custom/plugins/
+awesome_dir: /home/{{ user }}/.config/awesome
+git_repos:
+  - repo_url: "{{ zsh_plugin_base_url }}/zsh-syntax-highlighting.git"
+    dest: "{{ zsh_plugin_dir }}/zsh-syntax-highlighting"
+  - repo_url: "{{ zsh_plugin_base_url }}/zsh-autosuggestions.git"
+    dest: "{{ zsh_plugin_dir }}/zsh-autosuggestions"
+  - repo_url: "https://github.com/lcpz/lain.git"
+    dest: "{{ awesome_dir }}/lain"
+  - repo_url: "https://github.com/streetturtle/noobie.git"
+    dest: "{{ awesome_dir }}/noobie"
+
+wallpaper_url: "https://i.redd.it/jfkwibpvb7481.png"
+wallpaper_path: /home/{{user}}/Imagens/background.png

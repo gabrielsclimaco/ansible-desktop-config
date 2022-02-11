@@ -1,0 +1,47 @@
+  ---
+- name: Setup git
+  become: {{ user }}
+  shell:
+    cmd: |
+      git config --global user.email "{{ git_user_email }}"
+      git config --global user.name "{{ git_user_name }}"
+      echo "[diff \"ansible-vault\"]
+        textconv = ansible-vault view
+        cachetextconv = true" >> ~/.gitconfig
+
+- name: Clone dotfiles from repository
+  shell:
+    cmd: |
+      git init
+      git checkout -b main
+      git remote add origin {{ dotfiles_repo_url }}
+      git fetch origin
+      git reset --hard origin/main
+    chdir: /home/{{ user }}/.config
+
+- name: Copy zshenv file
+  copy:
+    src: "{{ zshenv_source }}"
+    dest: /home/{{ user }}/.zshenv
+
+- name: Clone config repos
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ git_repos }}"
+
+- name: Download wallpaper
+  get_url:
+    url: {{ wallpaper_url }}
+    dest: {{ wallpaper_path }}
+
+- name: Define color scheme based on wallpaper
+  command: wal -i {{ wallpaper_path }}
+
+- name: Copy Xresources file
+  copy:
+    src: /home/{{ user }}/.cache/wal/colors.Xresources
+    dest: /home/{{ user }}/.Xresources
+
+- name: Set wallpaper
+  command: feh --bg-fill {{ wallpaper_path }}
