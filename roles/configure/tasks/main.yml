@@ -19,6 +19,12 @@
       git reset --hard origin/main
     chdir: /home/{{ user }}/.config
 
+- name: change user shell to zsh 
+  become: yes
+  user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+
 - name: Copy zshenv file
   copy:
     src: "{{ zshenv_source }}"
