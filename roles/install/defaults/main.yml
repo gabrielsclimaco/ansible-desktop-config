@@ -1,0 +1,113 @@
+---
+yum_repositories:
+  - name: Docker CE Stable - $basearch
+    baseurl: "https://download.docker.com/linux/fedora/$releasever/$basearch/stable"
+    repo_gpgcheck: false
+    gpgkey: "https://download.docker.com/linux/fedora/gpg"
+  - name: Hashicorp Stable
+    baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable"
+    repo_gpgcheck: false
+    gpgkey: "https://rpm.releases.hashicorp.com/gpg"
+  - name: Kubernetes
+    baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
+    repo_gpgcheck: true
+    gpgkey:
+      - "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
+      - "https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" 
+  - name: Visual Studio Code
+    baseurl: "https://packages.microsoft.com/yumrepos/vscode"
+    repo_gpgcheck: false
+    gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+
+rpm_fusion_packages:
+  - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+  - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
+
+copr_projects:
+  - zeno/scrcpy
+
+slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm"
+package_manage_packages:
+  - ack
+  - awesome
+  - code
+  - copyq
+  - chromium
+  - curl
+  - discord
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose
+  - containerd.io
+  - feh
+  - gimp
+  - gnupg2
+  - gthumb
+  - htop
+  - flameshot
+  - imagemagick
+  - kubectl
+  - java-1.8.0-openjdk
+  - java-1.8.0-openjdk-devel
+  - neofetch
+  - neovim
+  - pass
+  - remmina
+  - scrcpy
+  - starship
+  - steam
+  - telegram-desktop
+  - terraform
+  - thefuck
+  - tmate
+  - tor
+  - vlc
+  - virtualbox
+  - wireguard-tools
+  - xclip
+  - unzip
+  - zsh
+  - "{{ slack_rpm_url }}"
+
+pip_packages:
+  - pynvim
+  - pywal
+  - pywalfox
+
+systemd_services:
+  - docker
+
+node_version: 16
+npm_packages:
+  - @quasar/cli
+  - cordova
+  - serverless
+  - yarn
+
+android_studio_version: "2021.1.1.11"
+android_studio_download_url: "https://r6---sn-bg07dnsy.gvt1.com/edgedl/android/studio/ide-zips/{{ android_studio_version }}/android-studio-{{ android_studio_version }}-linux.tar.gz"
+android_studio_packages:
+  - zlib.i686
+  - ncurses-libs.i686
+  - bzip2-libs.i686
+
+droidcam_download_url: "https://files.dev47apps.net/linux/droidcam_1.8.1.zip"
+droidcam_packages:
+  - libappindicator-gtk3
+  - v4l2loopback
+  - gcc
+  - make
+  - kernel-headers
+
+aws_download_url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+aws_packages:
+  - glibc
+  - groff
+  - less
+
+gradle_version: 7.4
+gradle_binary: "gradle-{{ gradle_version }}-all.zip"
+gradle_url: "https://services.gradle.org/distributions/{{ gradle_binary }}"
+gradle_base_dir: /opt/gradle
+gradle_extract_dir:  "gradle-{{ gradle_version }}"
+gradle_link: /usr/bin/gradle
