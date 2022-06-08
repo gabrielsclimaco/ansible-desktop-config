@@ -1,13 +1,15 @@
 ---
-- name: Setup git
-  become: "{{ user }}"
-  shell:
-    cmd: |
-      git config --global user.email "{{ git_user_email }}"
-      git config --global user.name "{{ git_user_name }}"
-      echo "[diff \"ansible-vault\"]
-        textconv = ansible-vault view
-        cachetextconv = true" >> ~/.gitconfig
+- name: Setup git user email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_user_email }}"
+
+- name: Setup git user name
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_user_name }}"
 
 - name: Clone dotfiles from repository
   shell:
