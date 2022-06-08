@@ -32,6 +32,7 @@ rpm_keys:
 slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm"
 package_manage_packages:
   - ack
+  - alacritty
   - awesome
   - code
   - copyq

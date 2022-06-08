@@ -101,6 +101,13 @@
     cmd: curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
     creates: "/home/{{ user }}/.joplin/Joplin.AppImage"
 
+# Oh my zsh
+- name: Install Oh my zsh
+  become_user: "{{ user }}"
+  shell:
+    cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    creates: "/home/{{ user }}/.oh-my-zsh/oh-my-zsh.sh"
+
 # Smug (tmux session manageme)
 - name: Download and extract smug binary
   unarchive:
