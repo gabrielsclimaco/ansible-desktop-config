@@ -159,7 +159,8 @@
 
 - name: Install aws cli
   shell:
-    cmd: /bin/bash -c "cd /opt/aws && source ./install"
+    cmd: ./install
+    chdir: /opt/aws
     creates: /usr/local/aws-cli/v2/current
 
 # Gradle
