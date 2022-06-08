@@ -177,11 +177,11 @@
     owner: root
     group: root
     mode: "0755"
-    creates: "{{ gradle_base_dir }}"
+    creates: "{{ gradle_binary }}"
 
 - name: Add gradle symlink to path
   file:
-    src: "{{ gradle_base_dir }}/{{ gradle_extract_dir }}/bin/gradle"
+    src: "{{ gradle_binary }}"
     dest: "{{ gradle_link }}"
     owner: root
     group: root
