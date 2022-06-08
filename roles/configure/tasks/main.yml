@@ -1,17 +1,31 @@
 ---
 - name: Setup git user email
+  become: yes
+  become_user: "{{ user }}"
   community.general.git_config:
     name: user.email
     scope: global
     value: "{{ git_user_email }}"
 
 - name: Setup git user name
+  become: yes
+  become_user: "{{ user }}"
   community.general.git_config:
     name: user.name
     scope: global
     value: "{{ git_user_name }}"
 
+- name: Setup default branch name
+  become: yes
+  become_user: "{{ user }}"
+  community.general.git_config:
+    name: init.defaultBranch
+    scope: global
+    value: main
+
 - name: Clone dotfiles from repository
+  become: yes
+  become_user: "{{ user }}"
   shell:
     cmd: |
       git init
@@ -24,6 +38,7 @@
 
 - name: change user shell to zsh 
   become: yes
+  become_user: "{{ user }}"
   user:
     name: "{{ user }}"
     shell: /bin/zsh
@@ -34,6 +49,8 @@
     dest: /home/{{ user }}/.zshenv
 
 - name: Clone config repos
+  become: yes
+  become_user: "{{ user }}"
   ansible.builtin.git:
     repo: "{{ item.repo_url }}"
     dest: "{{ item.dest }}"
