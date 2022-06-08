@@ -3,19 +3,21 @@ yum_repositories:
   - name: DockerCEStable
     description: Docker CE Stable yum repo
     baseurl: "https://download.docker.com/linux/fedora/$releasever/$basearch/stable"
-    repo_gpgcheck: false
+    gpgkey: "https://download.docker.com/linux/fedora/gpg"
   - name: HashicorpStable
     description: Hashicorp Stable yum repo
     baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable"
-    repo_gpgcheck: false
+    gpgkey: "https://rpm.releases.hashicorp.com/gpg"
   - name: Kubernetes
     description: Kubernetes yum repo
     baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
-    repo_gpgcheck: false
+    gpgkey:
+      - "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
+      - "https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg"
   - name: visualstudiocode
     description: visualstudiocode yum repo
     baseurl: "https://packages.microsoft.com/yumrepos/vscode"
-    repo_gpgcheck: false
+    gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
 
 rpm_fusion_packages:
   - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
