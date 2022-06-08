@@ -1,6 +1,6 @@
-  ---
+---
 - name: Setup git
-  become: {{ user }}
+  become: "{{ user }}"
   shell:
     cmd: |
       git config --global user.email "{{ git_user_email }}"
@@ -13,11 +13,12 @@
   shell:
     cmd: |
       git init
-      git checkout -b main
+      git checkout -b fedora
       git remote add origin {{ dotfiles_repo_url }}
       git fetch origin
-      git reset --hard origin/main
+      git reset --hard origin/fedora
     chdir: /home/{{ user }}/.config
+    creates: /home/{{ user }}/.config/.gitignore
 
 - name: change user shell to zsh 
   become: yes
@@ -32,22 +33,27 @@
 
 - name: Clone config repos
   ansible.builtin.git:
-    repo: "{{ item.repo }}"
+    repo: "{{ item.repo_url }}"
     dest: "{{ item.dest }}"
   with_items: "{{ git_repos }}"
 
+- name: Create wallpaper dir
+  file:
+    path: "{{ wallpaper_dir }}"
+    state: directory
+
 - name: Download wallpaper
   get_url:
-    url: {{ wallpaper_url }}
-    dest: {{ wallpaper_path }}
+    url: "{{ wallpaper_url }}"
+    dest: "{{ wallpaper_path }}"
 
 - name: Define color scheme based on wallpaper
-  command: wal -i {{ wallpaper_path }}
+  command: /home/{{ user }}/.config/scripts/chwp {{ wallpaper_path }}
 
-- name: Copy Xresources file
-  copy:
-    src: /home/{{ user }}/.cache/wal/colors.Xresources
-    dest: /home/{{ user }}/.Xresources
+- name: Run neofetch because why not
+  command: neofetch
+  register: neofetch
 
-- name: Set wallpaper
-  command: feh --bg-fill {{ wallpaper_path }}
+- name: Print neofetch output because why not
+  debug:
+    var: neofetch.stdout_lines

@@ -3,6 +3,7 @@
 - name: Add yum repositories repo
   yum_repository:
     name: "{{ item.name }}"
+    description: "{{ item.description }}"
     baseurl: "{{ item.baseurl }}"
     gpgkey: "{{ item.gpgkey }}"
     repo_gpgcheck: "{{ item.repo_gpgcheck }}"
@@ -22,6 +23,12 @@
   with_items: "{{ copr_projects }}"
   when: ansible_distribution == 'Fedora'
 
+- name: Add rpm gpg keys
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+  with_items: "{{ rpm_keys }}"
+
 # Install packages and start services
 - name: Install packages from package manager
   package:
@@ -31,8 +38,9 @@
 - name: Add user to "docker" group
   user:
     name: "{{ user }}"
-    group: "docker"
-    append: yes
+    groups:
+      - "docker"
+    append: true
 
 - name: Start and enable services
   service:
@@ -43,26 +51,31 @@
 
 # Pip
 - name: Install packages from pip
-  package:
+  pip:
     name: "{{ pip_packages }}"
     state: present
 
 # Node.js
 - name: Install nvm
-  shell: >
-    curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
-    creates=/home/{{ user }}/.nvm/nvm.sh
+  become_user: "{{ user }}"
+  shell:
+    cmd: curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
+    creates: "/home/{{ user }}/.nvm/nvm.sh"
 
 - name: Install node and set version
-  shell: >
-    /bin/bash -c "source ~/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
-    creates=/home/{{ user }}/.nvm/alias
+  become_user: "{{ user }}"
+  shell:
+    cmd: /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+    creates: "/home/{{ user }}/.nvm/alias"
 
 - name: Install packages from npm
   npm:
-    name: "{{ npm_packages }}"
+    name: "{{ item }}"
     global: true
     state: present
+  with_items: "{{ npm_packages }}"
+  environment:
+    PATH: "/home/{{user}}/.nvm/versions/node/v{{node_version}}/bin:{{ ansible_env.PATH }}"
 
 # Android Studio 
 - name: Install Android Studio 32bits packages
@@ -78,12 +91,14 @@
     owner: root
     group: root
     mode: "0755"
+    creates: /opt/android-studio
 
 # Joplin
 - name: Install Joplin
-  shell: >
-    curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
-    creates=/home/{{ user }}/.joplin/Joplin.AppImage
+  become_user: "{{ user }}"
+  shell:
+    cmd: curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
+    creates: "/home/{{ user }}/.joplin/Joplin.AppImage"
 
 # Droidcam
 - name: Install pre requisite packages for droidcam
@@ -91,22 +106,29 @@
     name: "{{ droidcam_packages }}"
     state: present
 
+- name: Create droidcam dir
+  file:
+    path: "{{ droidcam_dir }}"
+    state: directory
+
 - name: Download and extract Droidcam
   unarchive:
     src: "{{ droidcam_download_url }}"
     remote_src: true
-    dest: /opt/droidcam
+    dest: "{{ droidcam_dir }}"
     owner: root
     group: root
     mode: "0755"
 
-- name: Install droidcam client
-  shell: >
-    /bin/bash -c "source /opt/droidcam/install-client"
+# - name: Install droidcam client
+#   shell:
+#     cmd: "./install-client"
+#     chdir: "{{ droidcam_dir}}"
 
-- name: Install droidcam video
-  shell: >
-    /bin/bash -c "source /opt/droidcam/install-video"
+# - name: Install droidcam video
+#   shell:
+#     cmd: "./install-video"
+#     chdir: "{{ droidcam_dir}}"
 
 # AWS CLI
 - name: Install pre requisite packages for aws cli
@@ -118,16 +140,22 @@
   unarchive:
     src: "{{ aws_download_url }}"
     remote_src: true
-    dest: /opt/aws
+    dest: /opt
     owner: root
     group: root
     mode: "0755"
 
 - name: Install aws cli
-  shell: >
-    /bin/bash -c "source /opt/aws/install"
+  shell:
+    cmd: /bin/bash -c "cd /opt/aws && source ./install"
+    creates: /usr/local/aws-cli/v2/current
 
 # Gradle
+- name: Create gradle dir
+  file:
+    path: "{{ gradle_base_dir }}"
+    state: directory
+
 - name: Download and extract gradle
   unarchive:
     src: "{{ gradle_url }}"

@@ -19,5 +19,6 @@ git_repos:
   - repo_url: "https://github.com/streetturtle/noobie.git"
     dest: "{{ awesome_dir }}/noobie"
 
-wallpaper_url: "https://i.redd.it/jfkwibpvb7481.png"
-wallpaper_path: /home/{{user}}/Imagens/background.png
+wallpaper_url: "https://i.redd.it/zm9bk9d5n4z81.png"
+wallpaper_dir: /home/{{user}}/Imagens/Wallpapers/current
+wallpaper_path: "{{ wallpaper_dir }}/ansible-background.png"

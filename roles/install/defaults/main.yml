@@ -1,20 +1,24 @@
 ---
 yum_repositories:
-  - name: Docker CE Stable - $basearch
+  - name: DockerCEStable
+    description: Docker CE Stable yum repo
     baseurl: "https://download.docker.com/linux/fedora/$releasever/$basearch/stable"
     repo_gpgcheck: false
     gpgkey: "https://download.docker.com/linux/fedora/gpg"
-  - name: Hashicorp Stable
+  - name: HashicorpStable
+    description: Hashicorp Stable yum repo
     baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable"
     repo_gpgcheck: false
     gpgkey: "https://rpm.releases.hashicorp.com/gpg"
   - name: Kubernetes
+    description: Kubernetes yum repo
     baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
     repo_gpgcheck: true
     gpgkey:
       - "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
-      - "https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" 
-  - name: Visual Studio Code
+      - "https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg"
+  - name: visualstudiocode
+    description: visualstudiocode yum repo
     baseurl: "https://packages.microsoft.com/yumrepos/vscode"
     repo_gpgcheck: false
     gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
@@ -25,6 +29,9 @@ rpm_fusion_packages:
 
 copr_projects:
   - zeno/scrcpy
+
+rpm_keys:
+  - "https://slack.com/gpg/slack_pubkey_20210901.gpg"
 
 slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm"
 package_manage_packages:
@@ -45,7 +52,7 @@ package_manage_packages:
   - gthumb
   - htop
   - flameshot
-  - imagemagick
+  - ImageMagick
   - kubectl
   - java-1.8.0-openjdk
   - java-1.8.0-openjdk-devel
@@ -60,9 +67,10 @@ package_manage_packages:
   - terraform
   - thefuck
   - tmate
+  - tmux
   - tor
   - vlc
-  - virtualbox
+  - VirtualBox
   - wireguard-tools
   - xclip
   - unzip
@@ -77,26 +85,27 @@ pip_packages:
 systemd_services:
   - docker
 
-node_version: 16
+node_version: 16.14.0
 npm_packages:
   - "@quasar/cli"
   - cordova
   - serverless
   - yarn
 
-android_studio_version: "2021.1.1.11"
-android_studio_download_url: "https://r6---sn-bg07dnsy.gvt1.com/edgedl/android/studio/ide-zips/{{ android_studio_version }}/android-studio-{{ android_studio_version }}-linux.tar.gz"
+android_studio_download_url: "https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz"
 android_studio_packages:
   - zlib.i686
   - ncurses-libs.i686
   - bzip2-libs.i686
 
+droidcam_dir: /opt/droidcam
 droidcam_download_url: "https://files.dev47apps.net/linux/droidcam_1.8.1.zip"
 droidcam_packages:
   - libappindicator-gtk3
   - v4l2loopback
   - gcc
   - make
+  - kernel-devel
   - kernel-headers
 
 aws_download_url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
