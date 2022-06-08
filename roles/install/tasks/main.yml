@@ -1,5 +1,11 @@
 ---
 # Setup DNF
+- name: Enable the RPM Fusion repository
+  dnf:
+    name: "{{ rpm_fusion_packages }}"
+    state: present
+  when: ansible_distribution == 'Fedora'
+
 - name: Add yum repositories repo
   yum_repository:
     name: "{{ item.name }}"
@@ -10,12 +16,6 @@
     repo_gpgcheck: false
   when: ansible_distribution == 'Fedora'
   with_items: "{{ yum_repositories }}"
-
-- name: Enable the RPM Fusion repository
-  dnf:
-    name: "{{ rpm_fusion_packages }}"
-    state: present
-  when: ansible_distribution == 'Fedora'
 
 - name: Enable Fedora Copr for LXD
   community.general.copr:
