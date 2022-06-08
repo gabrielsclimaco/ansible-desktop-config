@@ -38,7 +38,6 @@
 
 - name: change user shell to zsh 
   become: yes
-  become_user: "{{ user }}"
   user:
     name: "{{ user }}"
     shell: /bin/zsh
