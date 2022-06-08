@@ -1,6 +1,6 @@
 # Personal Ansible Desktop Configs
 
-These is the Ansible setup that I use to configure my OS after installation. Currently suitable for Fedora 35.
+These is the Ansible setup that I use to configure my OS after installation. Currently suitable for Fedora 36.
 
 # What this setup does
 
