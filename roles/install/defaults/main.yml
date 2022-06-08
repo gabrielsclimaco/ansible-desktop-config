@@ -55,6 +55,7 @@ package_manage_packages:
   - neofetch
   - neovim
   - pass
+  - python3-pip
   - remmina
   - scrcpy
   - starship
