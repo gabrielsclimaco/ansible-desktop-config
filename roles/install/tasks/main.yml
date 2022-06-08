@@ -6,8 +6,7 @@
     description: "{{ item.description }}"
     baseurl: "{{ item.baseurl }}"
     gpgkey: "{{ item.gpgkey }}"
-    repo_gpgcheck: "{{ item.repo_gpgcheck }}"
-    gpgcheck: true
+    gpgcheck: false
   when: ansible_distribution == 'Fedora'
   with_items: "{{ yum_repositories }}"
 
