@@ -11,6 +11,8 @@
 
 - include_tasks: subtasks/oh_my_zsh.yml
 
+- include_tasks: subtasks/starship.yml
+
 - include_tasks: subtasks/aws.yml
 
 - include_tasks: subtasks/smug.yml

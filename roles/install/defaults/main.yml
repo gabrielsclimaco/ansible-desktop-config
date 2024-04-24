@@ -44,8 +44,6 @@ base_packages:
   - neofetch
   - neovim
   - pass
-  - scrcpy
-  - starship
   - terraform
   - thefuck
   - tmate
