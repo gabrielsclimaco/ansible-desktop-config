@@ -10,6 +10,7 @@
   become_user: "{{ user }}"
   shell:
     cmd: |
+      mkdir -p /home/{{ user }}/.ssh/
       ssh-keyscan github.com >> /home/{{ user }}/.ssh/known_hosts
       git init
       git checkout -b {{ dotfiles_branch }}
