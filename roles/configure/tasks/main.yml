@@ -1,6 +1,8 @@
 ---
 - include_tasks: subtasks/git.yml
 
+- include_tasks: subtasks/dotfiles.yml
+
 - include_tasks: subtasks/zsh.yml
 
 - include_tasks: subtasks/wallpaper.yml
