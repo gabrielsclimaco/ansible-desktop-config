@@ -5,6 +5,8 @@
 
     echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
     sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
+  args:
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install kubectl
@@ -16,6 +18,8 @@
 
 - name: Install helm
   shell: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  args:
+    creates: /usr/local/bin/helm
 
 - name: Install helmfile
   shell: |
@@ -24,3 +28,4 @@
     chmod +x helmfile
   args:
     chdir: /usr/local/bin/
+    creates: /usr/local/bin/helmfile
