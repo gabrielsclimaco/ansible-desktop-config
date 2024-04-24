@@ -10,10 +10,11 @@
   become_user: "{{ user }}"
   shell:
     cmd: |
+      ssh-keyscan github.com >> ~/.ssh/known_hosts
       git init
       git checkout -b {{ dotfiles_branch }}
       git remote add origin {{ dotfiles_repo_url }}
-      git fetch origin -o StrictHostKeyChecking=no
-      git reset --hard origin/{{ dotfiles_branch }} -o StrictHostKeyChecking=no
+      git fetch origin
+      git reset --hard origin/{{ dotfiles_branch }}
     chdir: /home/{{ user }}/.config
     creates: /home/{{ user }}/.config/.gitignore
