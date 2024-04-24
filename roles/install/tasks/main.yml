@@ -1,195 +1,22 @@
 ---
-# Setup DNF
-- name: Add yum repositories repo
-  yum_repository:
-    name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    baseurl: "{{ item.baseurl }}"
-    gpgkey: "{{ item.gpgkey }}"
-    gpgcheck: true
-    repo_gpgcheck: false
-  when: ansible_distribution == 'Fedora'
-  with_items: "{{ yum_repositories }}"
+- include_tasks: subtasks/setup_dnf.yml
 
-- name: Enable the RPM Fusion repository
-  dnf:
-    name: "{{ rpm_fusion_packages }}"
-    state: present
-    disable_gpg_check: true
-  when: ansible_distribution == 'Fedora'
+- include_tasks: subtasks/package_manager.yml
 
-- name: Enable Fedora Copr for LXD
-  community.general.copr:
-    name: "{{ item }}"
-  with_items: "{{ copr_projects }}"
-  when: ansible_distribution == 'Fedora'
+- include_tasks: subtasks/go.yml
 
-- name: Add rpm gpg keys
-  rpm_key:
-    key: "{{ item }}"
-    state: present
-  with_items: "{{ rpm_keys }}"
+- include_tasks: subtasks/node.yml
 
-# Install packages and start services
-- name: Install packages from package manager
-  package:
-    name: "{{ package_manage_packages }}"
-    state: present
+- include_tasks: subtasks/pip.yml
 
-- name: Add user to "docker" group
-  user:
-    name: "{{ user }}"
-    groups:
-      - "docker"
-    append: true
+- include_tasks: subtasks/oh_my_zsh.yml
 
-- name: Start and enable services
-  service:
-    name: "{{ item }}"
-    state: started
-    enabled: true
-  with_items: "{{ systemd_services }}"
+- include_tasks: subtasks/aws.yml
 
-# Pip
-- name: Install packages from pip
-  pip:
-    name: "{{ pip_packages }}"
-    state: present
+- include_tasks: subtasks/smug.yml
 
-# Node.js
-- name: Install nvm
-  become_user: "{{ user }}"
-  shell:
-    cmd: curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | sh
-    creates: "/home/{{ user }}/.nvm/nvm.sh"
+- include_tasks: subtasks/docker.yml
 
-- name: Install node and set version
-  become_user: "{{ user }}"
-  shell:
-    cmd: /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
-    creates: "/home/{{ user }}/.nvm/alias"
+- include_tasks: subtasks/joplin.yml
 
-- name: Install packages from npm
-  npm:
-    name: "{{ item }}"
-    global: true
-    state: present
-  with_items: "{{ npm_packages }}"
-  environment:
-    PATH: "/home/{{user}}/.nvm/versions/node/v{{node_version}}/bin:{{ ansible_env.PATH }}"
-
-# Android Studio 
-- name: Install Android Studio 32bits packages
-  package:
-    name: "{{ android_studio_packages }}"
-    state: present
-
-- name: Download and extract Android Studio
-  unarchive:
-    src: "{{ android_studio_download_url }}"
-    remote_src: true
-    dest: /opt
-    owner: root
-    group: root
-    mode: "0755"
-    creates: /opt/android-studio
-
-# Joplin
-- name: Install Joplin
-  become_user: "{{ user }}"
-  shell:
-    cmd: curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
-    creates: "/home/{{ user }}/.joplin/Joplin.AppImage"
-
-# Oh my zsh
-- name: Install Oh my zsh
-  become_user: "{{ user }}"
-  shell:
-    cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    creates: "/home/{{ user }}/.oh-my-zsh/oh-my-zsh.sh"
-
-# Smug (tmux session manageme)
-- name: Download and extract smug binary
-  unarchive:
-    src: "{{ smug_release_url }}"
-    remote_src: true
-    dest: "{{ smug_binary_dir }}"
-    owner: root
-    group: root
-    mode: "0755"
-    creates: "{{ smug_binary_dir }}/smug"
-
-# Droidcam
-- name: Install pre requisite packages for droidcam
-  package:
-    name: "{{ droidcam_packages }}"
-    state: present
-
-- name: Create droidcam dir
-  file:
-    path: "{{ droidcam_dir }}"
-    state: directory
-
-- name: Download and extract Droidcam
-  unarchive:
-    src: "{{ droidcam_download_url }}"
-    remote_src: true
-    dest: "{{ droidcam_dir }}"
-    owner: root
-    group: root
-    mode: "0755"
-
-# - name: Install droidcam client
-#   shell:
-#     cmd: "./install-client"
-#     chdir: "{{ droidcam_dir}}"
-
-# - name: Install droidcam video
-#   shell:
-#     cmd: "./install-video"
-#     chdir: "{{ droidcam_dir}}"
-
-# AWS CLI
-- name: Install pre requisite packages for aws cli
-  package:
-    name: "{{ aws_packages }}"
-    state: present
-
-- name: Download and extract aws cli
-  unarchive:
-    src: "{{ aws_download_url }}"
-    remote_src: true
-    dest: /opt
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: Install aws cli
-  shell:
-    cmd: ./install
-    chdir: /opt/aws
-    creates: /usr/local/aws-cli/v2/current
-
-# Gradle
-- name: Create gradle dir
-  file:
-    path: "{{ gradle_base_dir }}"
-    state: directory
-
-- name: Download and extract gradle
-  unarchive:
-    src: "{{ gradle_url }}"
-    remote_src: true
-    dest: "{{ gradle_base_dir }}"
-    owner: root
-    group: root
-    mode: "0755"
-    creates: "{{ gradle_binary }}"
-
-- name: Add gradle symlink to path
-  file:
-    src: "{{ gradle_binary }}"
-    dest: "{{ gradle_link }}"
-    owner: root
-    group: root
-    state: link
+- include_tasks: subtasks/android.yml

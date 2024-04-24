@@ -30,71 +30,60 @@ rpm_keys:
   - "https://slack.com/gpg/slack_pubkey_20210901.gpg"
 
 slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm"
-package_manage_packages:
+
+base_packages:
   - ack
-  - alacritty
-  - awesome
-  - code
-  - copyq
-  - chromium
   - curl
-  - discord
-  - docker-ce
-  - docker-ce-cli
-  - docker-compose
-  - containerd.io
-  - feh
-  - gimp
+  - git-crypt
   - gnupg2
-  - gthumb
   - htop
-  - flameshot
-  - ImageMagick
   - kubectl
   - java-1.8.0-openjdk
   - java-1.8.0-openjdk-devel
   - neofetch
   - neovim
   - pass
-  - python3-pip
-  - remmina
   - scrcpy
   - starship
-  - steam
-  - telegram-desktop
   - terraform
   - thefuck
   - tmate
   - tmux
-  - tor
-  - vlc
-  - VirtualBox
   - wireguard-tools
   - xclip
   - unzip
   - zsh
-  - "{{ slack_rpm_url }}"
+
+gui_packages:
+  - alacritty
+  - awesome
+  - code
+  - copyq
+  - chromium
+  - discord
+  - gimp
+  - gthumb
+  - remmina
+  - steam
+  - tor
+  - vlc
+  - VirtualBox
 
 pip_packages:
   - pynvim
-  - pywal
-  - pywalfox
+  # - pywal
+  # - pywalfox
 
+install_docker: false
 systemd_services:
   - docker
 
-node_version: 16.14.0
+node_version: 20
 npm_packages:
   - "@quasar/cli"
   - cordova
   - serverless
   - yarn
-
-android_studio_download_url: "https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz"
-android_studio_packages:
-  - zlib.i686
-  - ncurses-libs.i686
-  - bzip2-libs.i686
 
 smug_release_url: "https://github.com/ivaaaan/smug/releases/download/v0.2.9/smug_0.2.9_Linux_x86_64.tar.gz"
 smug_binary_dir: "/usr/local/bin/"
@@ -114,6 +103,16 @@ aws_packages:
   - glibc
   - groff
   - less
+
+install_joplin: false
+
+install_android: false
+
+android_studio_download_url: "https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz"
+android_studio_packages:
+  - zlib.i686
+  - ncurses-libs.i686
+  - bzip2-libs.i686
 
 gradle_version: 7.4
 gradle_remote_file: "gradle-{{ gradle_version }}-all.zip"

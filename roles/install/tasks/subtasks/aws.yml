@@ -1,0 +1,20 @@
+# AWS CLI
+- name: Install pre requisite packages for aws cli
+  package:
+    name: "{{ aws_packages }}"
+    state: present
+
+- name: Download and extract aws cli
+  unarchive:
+    src: "{{ aws_download_url }}"
+    remote_src: true
+    dest: /opt
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install aws cli
+  shell:
+    cmd: ./install
+    chdir: /opt/aws
+    creates: /usr/local/aws-cli/v2/current

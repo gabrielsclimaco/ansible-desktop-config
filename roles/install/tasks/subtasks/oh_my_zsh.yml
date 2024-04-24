@@ -1,0 +1,6 @@
+# Oh my zsh
+- name: Install Oh my zsh
+  become_user: "{{ user }}"
+  shell:
+    cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    creates: "/home/{{ user }}/.oh-my-zsh/oh-my-zsh.sh"

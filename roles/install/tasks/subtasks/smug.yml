@@ -1,0 +1,10 @@
+# Smug (tmux session manageme)
+- name: Download and extract smug binary
+  unarchive:
+    src: "{{ smug_release_url }}"
+    remote_src: true
+    dest: "{{ smug_binary_dir }}"
+    owner: root
+    group: root
+    mode: "0755"
+    creates: "{{ smug_binary_dir }}/smug"

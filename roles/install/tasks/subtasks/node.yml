@@ -1,0 +1,21 @@
+# Node.js
+- name: Install nvm
+  become_user: "{{ user }}"
+  shell:
+    cmd: curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | sh
+    creates: "/home/{{ user }}/.nvm/nvm.sh"
+
+- name: Install node and set version
+  become_user: "{{ user }}"
+  shell:
+    cmd: /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && nvm install {{ node_version }} && nvm alias default {{ node_version }}"
+    creates: "/home/{{ user }}/.nvm/alias"
+
+- name: Install packages from npm
+  npm:
+    name: "{{ item }}"
+    global: true
+    state: present
+  with_items: "{{ npm_packages }}"
+  environment:
+    PATH: "/home/{{user}}/.nvm/versions/node/v{{node_version}}/bin:{{ ansible_env.PATH }}"

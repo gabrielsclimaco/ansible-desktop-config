@@ -1,0 +1,15 @@
+- name: Create wallpaper dir
+  file:
+    path: "{{ wallpaper_dir }}"
+    state: directory
+  when: "{{ set_wallpaper }}"
+
+- name: Download wallpaper
+  get_url:
+    url: "{{ wallpaper_url }}"
+    dest: "{{ wallpaper_path }}"
+  when: "{{ set_wallpaper }}"
+
+- name: Define color scheme based on wallpaper
+  command: /home/{{ user }}/.config/scripts/chwp {{ wallpaper_path }}
+  when: "{{ set_wallpaper }}"

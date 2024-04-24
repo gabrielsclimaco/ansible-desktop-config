@@ -1,0 +1,7 @@
+# Joplin
+- name: Install Joplin
+  become_user: "{{ user }}"
+  shell:
+    cmd: curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
+    creates: "/home/{{ user }}/.joplin/Joplin.AppImage"
+  when: "{{ install_joplin }}"

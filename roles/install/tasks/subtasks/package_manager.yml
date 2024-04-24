@@ -1,0 +1,10 @@
+
+# Install packages from package manager
+- name: Install base packages from package manager
+  package:
+    name: "{{ base_packages }}"
+    state: present
+- name: Install packages from package manager to use with a gui
+  package:
+    name: "{{ gui_packages }}"
+    state: present
