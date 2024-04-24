@@ -21,6 +21,8 @@
 
 - include_tasks: subtasks/kubernetes.yml
 
+- include_tasks: subtasks/terraform.yml
+
 - include_tasks: subtasks/joplin.yml
 
 - include_tasks: subtasks/android.yml
