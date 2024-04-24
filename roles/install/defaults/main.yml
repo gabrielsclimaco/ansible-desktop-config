@@ -39,8 +39,8 @@ base_packages:
   - git-crypt
   - gnupg2
   - htop
-  - java-1.8.0-openjdk
-  - java-1.8.0-openjdk-devel
+  - openjdk-8-jdk
+  - openjdk-8-jre
   - neofetch
   - neovim
   - pass
