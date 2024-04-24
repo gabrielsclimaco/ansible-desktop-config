@@ -52,6 +52,7 @@ base_packages:
   - unzip
   - zsh
 
+install_gui: false
 gui_packages:
   - alacritty
   - awesome

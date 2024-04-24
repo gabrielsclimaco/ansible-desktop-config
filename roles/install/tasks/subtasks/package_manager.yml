@@ -8,3 +8,4 @@
   package:
     name: "{{ gui_packages }}"
     state: present
+  when: "{{ install_gui }}"
