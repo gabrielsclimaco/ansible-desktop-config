@@ -33,11 +33,12 @@ slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/
 
 base_packages:
   - ack
+  - apt-transport-https
+  - ca-certificates
   - curl
   - git-crypt
   - gnupg2
   - htop
-  - kubectl
   - java-1.8.0-openjdk
   - java-1.8.0-openjdk-devel
   - neofetch
