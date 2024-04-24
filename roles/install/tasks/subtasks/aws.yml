@@ -1,8 +1,8 @@
 # AWS CLI
-- name: Install pre requisite packages for aws cli
-  package:
-    name: "{{ aws_packages }}"
-    state: present
+# - name: Install pre requisite packages for aws cli
+#   package:
+#     name: "{{ aws_packages }}"
+#     state: present
 
 - name: Download and extract aws cli
   unarchive:
