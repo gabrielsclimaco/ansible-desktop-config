@@ -14,6 +14,6 @@
       git checkout -b {{ dotfiles_branch }}
       git remote add origin {{ dotfiles_repo_url }}
       git fetch origin -o StrictHostKeyChecking=no
-      git reset --hard origin/{{ dotfiles_branch }}
+      git reset --hard origin/{{ dotfiles_branch }} -o StrictHostKeyChecking=no
     chdir: /home/{{ user }}/.config
     creates: /home/{{ user }}/.config/.gitignore
