@@ -3,6 +3,6 @@
     src: "https://dl.google.com/go/go1.22.2.linux-amd64.tar.gz"
     remote_src: true
     dest: /usr/local/
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    owner: root
+    group: root
     mode: "0755"
