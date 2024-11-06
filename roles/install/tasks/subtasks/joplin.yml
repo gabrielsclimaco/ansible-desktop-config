@@ -5,3 +5,11 @@
     cmd: curl https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | sh
     creates: "/home/{{ user }}/.joplin/Joplin.AppImage"
   when: "{{ install_joplin }}"
+
+# - name: Install Joplin from AUR
+#   become_user: "{{ user }}"
+#   community.general.pacman:
+#     name: joplin-appimage
+#     state: present
+#     executable: 'yay'
+#   when: ansible_distribution == 'Archlinux'

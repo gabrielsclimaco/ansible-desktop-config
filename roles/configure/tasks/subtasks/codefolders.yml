@@ -1,0 +1,22 @@
+- name: Create code folder
+  file:
+    path: "{{ code_path }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: Create project subfolders
+  file:
+    path: "{{ code_path }}/{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  loop: "{{ code_projects }}"
+
+- name: Create code subfolders for projects
+  file:
+    path: "{{ code_path }}/{{ item[0] }}/{{ item[1] }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  loop: "{{ code_projects | product(code_folders) | list }}"

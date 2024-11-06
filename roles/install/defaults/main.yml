@@ -2,34 +2,34 @@
 yum_repositories:
   - name: DockerCEStable
     description: Docker CE Stable yum repo
-    baseurl: "https://download.docker.com/linux/fedora/$releasever/$basearch/stable"
-    gpgkey: "https://download.docker.com/linux/fedora/gpg"
+    baseurl: 'https://download.docker.com/linux/fedora/$releasever/$basearch/stable'
+    gpgkey: 'https://download.docker.com/linux/fedora/gpg'
   - name: HashicorpStable
     description: Hashicorp Stable yum repo
-    baseurl: "https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable"
-    gpgkey: "https://rpm.releases.hashicorp.com/gpg"
+    baseurl: 'https://rpm.releases.hashicorp.com/fedora/$releasever/$basearch/stable'
+    gpgkey: 'https://rpm.releases.hashicorp.com/gpg'
   - name: Kubernetes
     description: Kubernetes yum repo
-    baseurl: "https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64"
+    baseurl: 'https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64'
     gpgkey:
-      - "https://packages.cloud.google.com/yum/doc/yum-key.gpg"
-      - "https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg"
+      - 'https://packages.cloud.google.com/yum/doc/yum-key.gpg'
+      - 'https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg'
   - name: visualstudiocode
     description: visualstudiocode yum repo
-    baseurl: "https://packages.microsoft.com/yumrepos/vscode"
-    gpgkey: "https://packages.microsoft.com/keys/microsoft.asc"
+    baseurl: 'https://packages.microsoft.com/yumrepos/vscode'
+    gpgkey: 'https://packages.microsoft.com/keys/microsoft.asc'
 
 rpm_fusion_packages:
-  - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
-  - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm"
+  - 'https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm'
+  - 'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm'
 
 copr_projects:
   - zeno/scrcpy
 
 rpm_keys:
-  - "https://slack.com/gpg/slack_pubkey_20210901.gpg"
+  - 'https://slack.com/gpg/slack_pubkey_20210901.gpg'
 
-slack_rpm_url: "https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm"
+slack_rpm_url: 'https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-4.23.0-0.1.fc21.x86_64.rpm'
 
 base_packages:
   - ack
@@ -52,6 +52,78 @@ base_packages:
   - unzip
   - zsh
 
+pacman_packages:
+  - ack
+  - alacritty
+  - arandr
+  - awesome
+  - ca-certificates
+  - cargo
+  - copyq
+  - curl
+  - discord
+  - docker
+  - docker-compose
+  - feh
+  - gimp
+  - git-crypt
+  - github-cli
+  - gnupg
+  - gthumb
+  - htop
+  - jq
+  - jdk8-openjdk
+  - jre8-openjdk
+  - lsd
+  - lxappearance-gtk3
+  - onefetch
+  - otf-hermit-nerd # Hermit Nerd font
+  - neofetch
+  - neovim
+  - pass
+  - pavucontrol
+  - polybar
+  - rofi
+  - scrcpy
+  - sops
+  - steam
+  - qtile
+  - telegram-desktop
+  - terraform
+  - thefuck
+  - tmate
+  - tmux
+  - tor
+  - ttf-nerd-fonts-symbols
+  - vlc
+  - wireguard-tools
+  - xclip
+  - xorg-xkill
+  - xorg-xev
+  - unzip
+  - zsh
+
+yay_packages:
+  - android-studio
+  - aws-session-manager-plugin
+  - brave-bin
+  - droidcam
+  - extension-manager
+  - gnome-shell-extension-clipboard-history
+  - gnome-shell-extension-pop-shell-git
+  - google-cloud-cli
+  - google-cloud-cli-gke-gcloud-auth-plugin
+  - gotop
+  - joplin-appimage
+  - mullvad-vpn-bin
+  - pfetch
+  - rofi-greenclip
+  - slack-desktop
+  - vscodium-bin
+  - visual-studio-code-bin
+  - flyctl-bin
+  - zen-browser-bin
+
 install_gui: false
 gui_packages:
   - alacritty
@@ -70,25 +142,31 @@ gui_packages:
 
 pip_packages:
   - pynvim
-  # - pywal
-  # - pywalfox
+  - pywal
+  - pywalfox
+
+pacman_pip_packages:
+  - python-pynvim
+  - python-pywal
+  - python-black
 
 install_docker: false
 systemd_services:
   - docker
 
-node_version: 20.12.2
+node_version: 20.14.0
 npm_packages:
-  - "@quasar/cli"
+  - '@quasar/cli'
   - cordova
+  - prettier
   - serverless
   - yarn
 
-smug_release_url: "https://github.com/ivaaaan/smug/releases/download/v0.2.9/smug_0.2.9_Linux_x86_64.tar.gz"
-smug_binary_dir: "/usr/local/bin/"
+smug_release_url: 'https://github.com/ivaaaan/smug/releases/download/v0.2.9/smug_0.2.9_Linux_x86_64.tar.gz'
+smug_binary_dir: '/usr/local/bin/'
 
 droidcam_dir: /opt/droidcam
-droidcam_download_url: "https://files.dev47apps.net/linux/droidcam_1.8.1.zip"
+droidcam_download_url: 'https://files.dev47apps.net/linux/droidcam_1.8.1.zip'
 droidcam_packages:
   - libappindicator-gtk3
   - v4l2loopback
@@ -97,7 +175,7 @@ droidcam_packages:
   - kernel-devel
   - kernel-headers
 
-aws_download_url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+aws_download_url: 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip'
 aws_packages:
   - glibc
   - groff
@@ -107,16 +185,22 @@ install_joplin: false
 
 install_android: false
 
-android_studio_download_url: "https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz"
+android_studio_download_url: 'https://dl.google.com/dl/android/studio/ide-zips/3.6.1.0/android-studio-ide-192.6241897-linux.tar.gz'
 android_studio_packages:
   - zlib.i686
   - ncurses-libs.i686
   - bzip2-libs.i686
 
 gradle_version: 7.4
-gradle_remote_file: "gradle-{{ gradle_version }}-all.zip"
-gradle_url: "https://services.gradle.org/distributions/{{ gradle_remote_file }}"
+gradle_remote_file: 'gradle-{{ gradle_version }}-all.zip'
+gradle_url: 'https://services.gradle.org/distributions/{{ gradle_remote_file }}'
 gradle_base_dir: /opt/gradle
-gradle_extract_dir:  "gradle-{{ gradle_version }}"
-gradle_binary: "{{ gradle_base_dir }}/{{ gradle_extract_dir }}/bin/gradle"
+gradle_extract_dir: 'gradle-{{ gradle_version }}'
+gradle_binary: '{{ gradle_base_dir }}/{{ gradle_extract_dir }}/bin/gradle'
 gradle_link: /usr/bin/gradle
+
+k8s_pacman_packages:
+  - kubectl
+  - kustomize
+  - helm
+  - helmfile

@@ -6,3 +6,5 @@
 - include_tasks: subtasks/zsh.yml
 
 - include_tasks: subtasks/wallpaper.yml
+
+- include_tasks: subtasks/codefolders.yml

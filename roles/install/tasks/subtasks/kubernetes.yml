@@ -20,6 +20,7 @@
   shell: curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
   args:
     creates: /usr/local/bin/helm
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install helmfile
   shell: |
@@ -29,3 +30,10 @@
   args:
     chdir: /usr/local/bin/
     creates: /usr/local/bin/helmfile
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Kubernetes tools from pacman
+  package:
+    name: "{{ k8s_pacman_packages }}"
+    state: present
+  when: ansible_distribution == 'Archlinux'

@@ -19,3 +19,11 @@
       git reset --hard origin/{{ dotfiles_branch }}
     chdir: /home/{{ user }}/.config
     creates: /home/{{ user }}/.config/.gitignore
+
+- name: Link tmux config file
+  file:
+    src: /home/{{ user }}/.config/.tmux.conf
+    dest: /home/{{ user }}/.tmux.conf
+    state: link
+    owner: "{{ user }}"
+    group: "{{ user }}"

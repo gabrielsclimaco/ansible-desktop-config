@@ -4,7 +4,7 @@
 
   vars:
     - user: coffee
-  
+
   roles:
     - install # Install modules and packages
     - configure # Setup dotfiles with some additional environment config

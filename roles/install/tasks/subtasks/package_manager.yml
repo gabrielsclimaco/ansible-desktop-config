@@ -1,11 +1,26 @@
 
 # Install packages from package manager
-- name: Install base packages from package manager
-  package:
+- name: Install base packages from apt
+  apt:
     name: "{{ base_packages }}"
     state: present
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Install packages from package manager to use with a gui
   package:
     name: "{{ gui_packages }}"
     state: present
   when: "{{ install_gui }}"
+
+- name: Install packages from pacman
+  community.general.pacman:
+    name: "{{ pacman_packages }}"
+    state: present
+  when: ansible_distribution == 'Archlinux'
+
+- name: Install packages from yay
+  community.general.pacman:
+    name: "{{ yay_packages }}"
+    state: present
+    executable: 'yay'
+  when: ansible_distribution == 'Archlinux'

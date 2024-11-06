@@ -11,8 +11,7 @@
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install terraform
-  apt:
+  package:
     name: terraform
     state: present
     update_cache: yes
-  when: ansible_distribution == 'Ubuntu'
