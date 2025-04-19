@@ -65,6 +65,7 @@ pacman_packages:
   - docker
   - docker-compose
   - feh
+  - flameshot
   - gimp
   - git-crypt
   - github-cli

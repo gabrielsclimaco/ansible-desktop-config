@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    - user: coffee
+    user: coffee
 
   roles:
     - install # Install modules and packages
