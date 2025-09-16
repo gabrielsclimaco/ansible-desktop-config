@@ -3,7 +3,7 @@ git_user_email: gabrielsclimaco@protonmail.com
 git_user_name: gabrielsclimaco
 
 dotfiles_repo_url: git@github.com:gabrielsclimaco/dotfiles.git
-dotfiles_branch: endeavour
+dotfiles_branch: wsl
 
 zshenv_source: /home/{{ user }}/.config/zsh/.zshenv
 
@@ -29,8 +29,7 @@ code_path: /home/{{ user }}/code
 code_projects:
   - personal
   - ifut
-  - zrp
-  - frente
+
 code_folders:
   - dev
   - ops

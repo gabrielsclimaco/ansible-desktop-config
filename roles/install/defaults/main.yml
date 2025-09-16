@@ -34,6 +34,7 @@ slack_rpm_url: 'https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/
 base_packages:
   - ack
   - apt-transport-https
+  - bashtop
   - ca-certificates
   - curl
   - git-crypt
@@ -44,13 +45,16 @@ base_packages:
   - neofetch
   - neovim
   - pass
-  - thefuck
   - tmate
   - tmux
   - wireguard-tools
   - xclip
   - unzip
   - zsh
+
+apt_only_packages:
+  - fzf
+  - lsd
 
 pacman_packages:
   - ack
@@ -91,7 +95,6 @@ pacman_packages:
   - qtile
   - telegram-desktop
   - terraform
-  - thefuck
   - tmate
   - tmux
   - tor
@@ -150,6 +153,10 @@ pacman_pip_packages:
   - python-pynvim
   - python-pywal
   - python-black
+
+apt_pip_packages:
+  - python3-pynvim
+  - python3-setuptools
 
 install_docker: false
 systemd_services:

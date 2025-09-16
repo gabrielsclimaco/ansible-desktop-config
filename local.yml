@@ -4,6 +4,7 @@
 
   vars:
     user: coffee
+    install_gui: false
 
   roles:
     - install # Install modules and packages

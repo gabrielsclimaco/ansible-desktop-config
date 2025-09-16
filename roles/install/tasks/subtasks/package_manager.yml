@@ -6,6 +6,13 @@
     state: present
   when: ansible_distribution == 'Ubuntu'
 
+# Install packages from package manager
+- name: Install apt only packages
+  apt:
+    name: "{{ apt_only_packages }}"
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Install packages from package manager to use with a gui
   package:
     name: "{{ gui_packages }}"
@@ -28,11 +35,11 @@
 #     extra_args: --builddir /var/cache/yay
 #   when: ansible_distribution == 'Archlinux'
 
-- name: Install packages from yay
-  become: yes
-  become_user: "{{ user }}"
-  kewlfft.aur.aur:
-    use: yay
-    name: "{{ yay_packages }}"
-    state: present
-  when: ansible_distribution == 'Archlinux'
+# - name: Install packages from yay
+#   become: yes
+#   become_user: "{{ user }}"
+#   kewlfft.aur.aur:
+#     use: yay
+#     name: "{{ yay_packages }}"
+#     state: present
+#   when: ansible_distribution == 'Archlinux'

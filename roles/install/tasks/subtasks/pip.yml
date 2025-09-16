@@ -3,10 +3,16 @@
   pip:
     name: "{{ pip_packages }}"
     state: present
-  when: ansible_distribution != 'Archlinux'
+  when: ansible_distribution != 'Archlinux' and ansible_distribution != 'Ubuntu'
 
 - name: Install pip packages from pacman
   package:
     name: "{{ pacman_pip_packages }}"
     state: present
   when: ansible_distribution == 'Archlinux'
+
+- name: Install pip packages from apt
+  package:
+    name: "{{ apt_pip_packages }}"
+    state: present
+  when: ansible_distribution == 'Ubuntu'
